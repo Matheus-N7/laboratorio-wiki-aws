@@ -36,7 +36,7 @@ Exemplo de como responder, com o formato e o que ele implica:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Verifica-se que os documentos estão em três tipos de formato (PDF, os digitalizados em PNG e CSV). Implica no uso de duas maneiras para a extração das informações, sendo o uso de OCR (Textract) para o PDF e PNG. E uso do Lambda para o CSV..
 ```
 
 ---
@@ -57,7 +57,7 @@ Exemplo:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Arquivos em formatos e estruturas diferentes e imagens escaneadas podem vir borradas e o CSV pode vir com colunas faltando.
 ```
 
 ---
@@ -69,7 +69,7 @@ Liste quais informações precisam ser identificadas para transformar os documen
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+As informações importantes para a extração são:  nome dos envolvidos, datas, locais, assuntos tratados e suas decisões, valores financeiros, prazos, riscos, pendências, projetos, áreas e segmentos organizacional.
 ```
 
 ---
@@ -81,7 +81,7 @@ Como você classificaria os documentos sem depender de subpastas dentro de `raw/
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Optou-se por não realizar classificação ou separação manual prévia dos arquivos. Todos serão enviados juntos, e a classificação (roteamento por extensão) ocorrerá de forma automatizada na nuvem via Lambda.
 ```
 
 ---
@@ -103,7 +103,7 @@ Serviços que você pode considerar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Os arquivos serão enviados no seu estado original sem modificações por meio do Console de Gerenciamento da AWS via upload, com destino a um sistema de armazenamento Amazon S3.
 ```
 
 ---
@@ -115,7 +115,7 @@ Explique como garantir que os arquivos originais sejam mantidos intactos e rastr
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+A preservação será feita por meio Amazon S3 inicial, o qual manterá os arquivos originais.
 ```
 
 ---
@@ -144,7 +144,7 @@ Serviços que você pode considerar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+A extração dos textos dos documentos será feita com base no seu tipo de arquivo (PDF, PNG e CSV). Onde o Textract fica responsável dos PDFs e PNGs, enquanto o Lambda com uma função de conversão de tabela para texto cuida do CSV. E apesar de na pasta não conter arquivos nos formatos TXT, MD e DOCX no futuro se fossem adicionados os TXT e MD seguiriam a rota do Lambda (pois já são texto). Arquivos DOCX exigiriam uma biblioteca de extração no Lambda ou envio para o Textract..
 ```
 
 ---
@@ -156,7 +156,7 @@ Explique como sua solução identificaria e registraria erros de processamento.
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Quando um arquivo dá erro (ex: o Textract não conseguiu ler a imagem), esse arquivo segue para uma "Fila de Erros", conhecida como DLQ (Dead Letter Queue), ou o movemos para um Armazenamento "S3-Erros". Assim, o sistema não trava e um administrador humano pode olhar o arquivo defeituoso depois.
 ```
 
 ---
@@ -170,7 +170,7 @@ Explique como os textos extraídos seriam limpos, normalizados e preparados para
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Por meio do Comprehend os textos extraídos serão analisados e devolvidos e estruturado no formato JSON, com as informações em blocos classificados.
 ```
 
 ---
@@ -180,17 +180,17 @@ Preencha aqui.
 Defina quais metadados você extrairia de cada documento.
 
 | Metadado | Por que ele é importante? |
-|---|---|
-| Nome do documento | Preencha aqui |
-| Tipo do documento | Preencha aqui |
-| Data identificada | Preencha aqui |
-| Tema principal | Preencha aqui |
-| Participantes | Preencha aqui |
-| Decisões tomadas | Preencha aqui |
-| Responsáveis | Preencha aqui |
-| Próximos passos | Preencha aqui |
-| Nível de confidencialidade | Preencha aqui |
-| Caminho do arquivo original | Preencha aqui |
+| --- | --- |
+| Nome do documento | É uma forma de identificar o documento. |
+| Tipo do documento | Classificação do formato (ex: PDF, PNG, CSV) ou documento (Ata, Relatório). |
+| Data identificada | Marca o registro de quando os eventos ocorreram ou vão ocorrer. |
+| Tema principal | O assunto principal tratado no documento. |
+| Participantes | Pessoas que participaram do contexto ou reunião. |
+| Decisões tomadas | Representa as ações decididas pelos envolvidos. |
+| Responsáveis | Pessoas responsáveis por determinada tarefa. |
+| Próximos passos | Ações e tarefas a serem cumpridas. |
+| Nível de confidencialidade | O Comprehend detecta PII (como CPF e Cartão de Crédito). Se achar, a tag vira "Alta". |
+| Caminho do arquivo original | Link referente ao arquivo original armazenado no S3. |
 
 Adicione outros metadados, se necessário.
 
@@ -203,7 +203,7 @@ Explique como o Amazon Bedrock poderia ajudar a identificar temas, decisões, re
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Amazon Bedrock consegue cruzar informações de documentos diferentes e gerar um resumo completo (parágrafo único) para o usuário, poupando a pessoa de ler páginas e páginas de arquivos.
 ```
 
 ---
@@ -222,7 +222,7 @@ Serviços que você pode considerar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Os metadados seriam armazenados no S3 “processados” e terão sua conexão aos dados originais através do Kendra quando houver a busca/ solicitação dos dados.
 ```
 
 ---
@@ -236,7 +236,7 @@ Explique como os documentos seriam divididos em trechos menores e preparados par
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Os documentos seriam divididos em trechos menores, onde o Kendra transforma palavras em números para entender o significado por exemplo: entende que "Cachorro" e "Cão" têm números parecidos.
 ```
 
 ---
@@ -256,7 +256,7 @@ Serviços que você pode considerar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+O Kendra já gerencia a criação de embeddings e a base vetorial nativamente.
 ```
 
 ---
@@ -275,7 +275,7 @@ Considere explicar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+O sistema pega a pergunta do usuário, o Amazon Kendra vasculha os JSONs do S3 processado e devolve apenas 2 ou 3 parágrafos mais relevantes sobre o assunto. Depois com apenas a pergunta e esses parágrafos relevantes o Bedrock formula a resposta clara e resumida, bem como o link para o arquivo original. Caracterizando uma arquitetura RAG (Retrieval-Augmented Generation)..
 ```
 
 ---
@@ -295,7 +295,7 @@ Serviços que você pode considerar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Através do Bedrock , a interface de consulta será um Chatbot Web Customizado. Essa aplicação receberá a pergunta do funcionário, fará a orquestração entre o Kendra e o Bedrock na AWS e exibirá a resposta final na tela, permitindo que o usuário 'converse' com o acervo disponível.
 ```
 
 ---
@@ -317,7 +317,7 @@ Serviços que você pode considerar:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+IAM para garantir que só funcionários autorizados acessem o painel de busca.
 ```
 
 ---
@@ -333,7 +333,7 @@ Explique em poucas linhas a ideia central da sua arquitetura.
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+A visão Geral da arquitetura é ser simples e funcional de modo que os objetivos estabelecidos no desafio sejam cumpridos utilizando somente serviços AWS.
 ```
 
 ---
@@ -341,16 +341,13 @@ Preencha aqui.
 ## 2. Serviços AWS utilizados
 
 | Serviço AWS | Papel na solução |
-|---|---|
-| Amazon S3 | Preencha aqui |
-| Amazon Textract | Preencha aqui |
-| Amazon Bedrock | Preencha aqui |
-| Amazon Bedrock Knowledge Bases | Preencha aqui |
-| AWS Lambda | Preencha aqui |
-| AWS Step Functions | Preencha aqui |
-| Amazon CloudWatch | Preencha aqui |
-| AWS IAM | Preencha aqui |
-| AWS KMS | Preencha aqui |
+| --- | --- |
+| Amazon S3 | Sistema para a armazenagem dos documentos brutos e dos processados. |
+| AWS Lambda | Roteia arquivos e limpa/formata dados. |
+| Amazon Textract | Extração de texto de formatos que precisam de OCR (Imagens e PDFs). |
+| Amazon Comprehend | Faz a análise estruturada e extrai as tags/entidades dos textos. |
+| Amazon Kendra | Motor de busca inteligente varrendo o S3 Processado e recuperando os melhores trechos. |
+| Amazon Bedrock | Responsável pela interação e formulação da resposta humana final para o usuário. |
 
 Adicione, remova ou ajuste os serviços conforme sua proposta.
 
@@ -377,7 +374,15 @@ Exemplo de estrutura:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+1. Os arquivos na pasta `raw/` são enviados para o Amazon S3 sem alterações.
+2. Os documentos são roteados por uma função Lambda com base no seu formato, ocorrendo uma divisão de rotas.
+3. **Caminho 1 (CSV):** Passa por uma segunda função Lambda que faz a leitura e extração do texto limpo.
+4. **Caminho 2 (PDF e PNG):** Passam pelo Textract e seus textos são extraídos.
+5. Os caminhos se unem e os textos passam pelo Amazon Comprehend, onde ocorre a análise semântica e a classificação das tags.
+6. Os dados enriquecidos e formatados em JSON são armazenados em um outro Amazon S3 (Camada Processada).
+7. O usuário faz uma pergunta no Chatbot Web da empresa.
+8. O Amazon Kendra busca na pergunta, extrai os trechos mais relevantes do S3 Processado e manda para o Bedrock.
+9. O Amazon Bedrock formula a resposta humanizada e a entrega ao usuário, juntamente com o link do arquivo original como fonte.
 ```
 
 ---
@@ -395,7 +400,7 @@ raw/ → Amazon S3 → Lambda/Step Functions → Textract → S3 Processado → 
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+![Diagrama da Arquitetura](diagrama-wiki.png).
 ```
 
 ---
@@ -416,7 +421,9 @@ Exemplo:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Documentos ilegíveis podem prejudicar a extração de texto ou OCR gerar erros em documentos com baixa qualidade. 
+Custos podem aumentar conforme o volume de documentos, portanto é recomendado estabelecer um orçamento e configurar o AWS Budgets para enviar um alarme se o projeto ultrapassar o valor estipulado.
+Segurança alguém vazar dados do S3.
 ```
 
 ---
@@ -438,7 +445,7 @@ Exemplo:
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Adicionar o AWS CloudTrail para aumentar a segurança do processo, sendo este um serviço que grava um histórico/auditoria de quem pesquisou o quê.
 ```
 
 ---
@@ -467,5 +474,5 @@ Escreva uma breve conclusão defendendo sua solução como se estivesse apresent
 **Sua resposta:**
 
 ```md
-Preencha aqui.
+Ao propor uma solução para um problema comum das empresas, o desafio demonstra a complexidade e as variadas alternativas presentes nos serviços da AWS para sua resolução e a importância da arquitetura em nuvem.
 ```
