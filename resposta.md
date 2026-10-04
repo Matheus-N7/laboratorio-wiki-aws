@@ -9,13 +9,13 @@
 ## 👤 Identificação
 
 **Nome:**  
-Preencha aqui
+Matheus Leonardo
 
 **Data:**  
-Preencha aqui
+03/10/2026
 
 **Link do repositório:**  
-Preencha aqui
+(https://github.com/Matheus-N7/laboratorio-wiki-aws/tree/main)
 
 ---
 
@@ -400,7 +400,8 @@ raw/ → Amazon S3 → Lambda/Step Functions → Textract → S3 Processado → 
 **Sua resposta:**
 
 ```md
-![Diagrama da Arquitetura](diagrama-wiki.png).
+<img width="830" height="323" alt="diagrama-wiki" src="https://github.com/user-attachments/assets/d8540740-29f8-4aac-a246-50b5109ab32c" />.
+
 ```
 
 ---
@@ -454,16 +455,16 @@ Adicionar o AWS CloudTrail para aumentar a segurança do processo, sendo este um
 
 Antes de entregar, confirme se sua solução responde:
 
-- [ ] Como transformar documentos escaneados em texto?
-- [ ] Como lidar com diferentes formatos dentro da mesma pasta `raw/`?
-- [ ] Como armazenar os documentos originais?
-- [ ] Como preservar a rastreabilidade entre resposta e documento fonte?
-- [ ] Como organizar metadados?
-- [ ] Como criar busca semântica?
-- [ ] Como usar Amazon Bedrock na solução?
-- [ ] Como proteger documentos sensíveis?
-- [ ] Como monitorar falhas?
-- [ ] Como a empresa usaria essa Wiki no dia a dia?
+- [x] Como transformar documentos escaneados em texto?
+- [x] Como lidar com diferentes formatos dentro da mesma pasta `raw/`?
+- [x] Como armazenar os documentos originais?
+- [x] Como preservar a rastreabilidade entre resposta e documento fonte?
+- [x] Como organizar metadados?
+- [x] Como criar busca semântica?
+- [x] Como usar Amazon Bedrock na solução?
+- [x] Como proteger documentos sensíveis?
+- [x] Como monitorar falhas?
+- [x] Como a empresa usaria essa Wiki no dia a dia?
 
 ---
 
